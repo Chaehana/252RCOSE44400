@@ -15,10 +15,10 @@ def read_message():
     - If it doesn't exist, return an empty string
     """
     if os.path.exists(DATA_PATH):
-	with open(DATA_PATH, "r") as f:
-		return f.read().strip()
+        with open(DATA_PATH, "r") as f:
+            return f.read().strip()
     else:
-	return ""
+        return ""
 
 
 def write_message(msg: str):
@@ -29,7 +29,7 @@ def write_message(msg: str):
     """
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
     with open(DATA_PATH, "w") as f:
-	f.write(msg)
+        f.write(msg)
 
 
 @app.route("/api/message", methods=["GET"])
@@ -52,8 +52,9 @@ def update_message():
     - Call write_message() to save it
     - Return { "status": "ok" }
     """
-    data = request.get_jason()
-    write_message(data.get("message", "")
+    data = request.get_json()
+    message = data.get("message", "")
+    write_message(message)
     return jsonify({"status": "updated"})
 
 

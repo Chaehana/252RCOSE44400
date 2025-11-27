@@ -16,11 +16,11 @@ def index():
     - Render index.html and pass the message as "current_message"
     """
     try:
-	response = requests.get(f"{BACKEND_URL}/api/message")
-	data = response.json()
-	message = data.get("message", "(no message yet)") #if no message is stored
+        response = requests.get(f"{BACKEND_URL}/api/message")
+        data = response.json()
+        message = data.get("message", "(no message yet)") #if no message is stored
     except Exception:
-	message = "(backend unavailable)"
+        message = "(backend unavailable)"
     return render_template("index.html", current_message=message)
 
 
@@ -36,8 +36,8 @@ def update():
     new_message = request.form.get("new_message", "").strip()
 
     requests.post(
-	f"{BACKEND_URL}/api/message",
-	json={"message": new_message}
+        f"{BACKEND_URL}/api/message",
+        json={"message": new_message}
     )
     return redirect("/")
 
