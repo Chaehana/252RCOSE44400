@@ -21,7 +21,16 @@ def index():
         message = data.get("message", "(no message yet)") #if no message is stored
     except Exception:
         message = "(backend unavailable)"
-    return render_template("index.html", current_message=message)
+    pattern = r"(.*) \(updated at (,*)\)"
+    match = re.match(pattern, message)
+    if match:
+        new_message = match.group(1).strip()
+        timestamp = match.group(2).strip()
+    else:
+        new_message = message
+        timestamp = None
+
+    return render_template("index.html", current_message=new_message, updated_time = timestamp)
 
 
 @app.route("/update", methods=["POST"])

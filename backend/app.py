@@ -28,8 +28,10 @@ def write_message(msg: str):
     - Write msg to the file
     """
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
+    timestamp = datetime.now().strftime("Y-%m-%d  %H:%M:%S")
+    full_msg = f"{msg} (updated at {timestamp})"
     with open(DATA_PATH, "w") as f:
-        f.write(msg)
+        f.write(full_msg)
 
 
 @app.route("/api/message", methods=["GET"])
@@ -68,6 +70,9 @@ def update_message():
 # - Add new endpoint /api/health that returns:
 #   { "status": "healthy" }
 
+@app.route("/api/health", methods=["GET"])
+def health():
+    return jsonify({"status": "healthy"})
 
 if __name__ == "__main__":
     # Do not change the host or port
