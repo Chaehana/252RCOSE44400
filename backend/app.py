@@ -28,7 +28,7 @@ def write_message(msg: str):
     - Write msg to the file
     """
     os.makedirs(os.path.dirname(DATA_PATH), exist_ok=True)
-    timestamp = datetime.now().strftime("Y-%m-%d  %H:%M:%S")
+    timestamp = datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
     full_msg = f"{msg} (updated at {timestamp})"
     with open(DATA_PATH, "w") as f:
         f.write(full_msg)
